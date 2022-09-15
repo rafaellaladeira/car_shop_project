@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { IService } from '../interfaces/IService';
 import { ICar } from '../interfaces/ICar';
+import { ErrorTypes } from '../errors/error';
 
 export default class CarsControl {
   constructor(private _service: IService<ICar>) {}
@@ -14,6 +15,13 @@ export default class CarsControl {
 
   public async read(_req: Request, res: Response<ICar[]>) {
     const result = await this._service.read();
+    return res.status(200).json(result);
+  }
+
+  public async readOne(req: Request, res: Response<ICar>) {
+    const { id } = req.params;
+    if (id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+    const result = await this._service.readOne(id);
     return res.status(200).json(result);
   }
 }
