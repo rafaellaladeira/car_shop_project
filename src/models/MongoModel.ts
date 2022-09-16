@@ -1,4 +1,5 @@
-import { Model, UpdateQuery } from 'mongoose';
+import { isValidObjectId, Model, UpdateQuery } from 'mongoose';
+import { ErrorTypes } from '../errors/error';
 
 abstract class MongoModel<T> {
   protected _model:Model<T>;
@@ -26,6 +27,13 @@ abstract class MongoModel<T> {
       { new: true },
     );    
     return result;
+  }
+
+  public async delete(_id: string): Promise<T | null> {
+    if (!isValidObjectId) throw new Error(ErrorTypes.EntityNotFound);
+
+    const data = await this._model.findByIdAndRemove({ _id });
+    return data;
   }
 }
 
