@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, UpdateQuery } from 'mongoose';
 
 abstract class MongoModel<T> {
   protected _model:Model<T>;
@@ -14,8 +14,18 @@ abstract class MongoModel<T> {
   public async read(): Promise<T[]> {
     return this._model.find();
   }
+
   public async readOne(_id: string): Promise<T | null> {
     return this._model.findOne({ _id });
+  }
+
+  public async update(_id: string, data: Partial<T>): Promise<T | null> {
+    const result = await this._model.findByIdAndUpdate(
+      { _id },
+      { ...data } as UpdateQuery<T>,
+      { new: true },
+    );    
+    return result;
   }
 }
 
