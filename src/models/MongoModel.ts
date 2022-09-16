@@ -36,5 +36,4 @@ abstract class MongoModel<T> {
     return data;
   }
 }
-
 export default MongoModel;
