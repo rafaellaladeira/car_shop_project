@@ -98,23 +98,23 @@ describe('update a car', ()=> {
       });
 })
 
-describe('delete a car', ()=> {
-    it('sucess', async () => {
-      req.params = { id: carMockWithId._id };
-      await carsControl.delete(req, res);
+// describe('delete a car', ()=> {
+//     it('sucess', async () => {
+//       req.params = { id: carMockWithId._id };
+//       await carsControl.delete(req, res);
 
-      expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
-    });
+//       expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
+//     });
 
-    it('fail', async () => {
-        req.params = { id: '4edd40c8762e0fb1g20ERRADO' };
+//     it('fail', async () => {
+//         req.params = { id: '4edd40c8762e0fb1g20ERRADO' };
         
-        try {
-            await carsControl.delete(req, res);
-        } catch (error: any) {
-            expect(error.message).to.be.eq('InvalidMongoId')
-        }
-      });
-})
+//         try {
+//             await carsControl.delete(req, res);
+//         } catch (error: any) {
+//             expect(error.message).to.be.eq('InvalidMongoId')
+//         }
+//       });
+// })
 
 });
