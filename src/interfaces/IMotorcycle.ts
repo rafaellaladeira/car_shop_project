@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { VehicleSchema } from './IVehicle';
 
-const Motorcycle = VehicleSchema.extend({
+const MotorcycleSchema = VehicleSchema.extend({
   category: z.enum(['Street', 'Custom', 'Trail']),
   engineCapacity: z.number().int().lte(2500),
 });
 
-type IMotorcycle = z.infer<typeof Motorcycle>;
+type IMotorcycle = z.infer<typeof MotorcycleSchema>;
 
-export { IMotorcycle, Motorcycle };
+export { IMotorcycle, MotorcycleSchema };
