@@ -4,6 +4,11 @@ import MongoModel from './MongoModel';
 
 const motorcycleSchema = new Schema<IMotorcycle>(
   {
+    model: String,
+    year: Number,
+    color: String,
+    status: Boolean,
+    buyValue: Number,
     category: String,
     engineCapacity: Number,
   },
