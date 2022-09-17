@@ -1,7 +1,7 @@
 import { IService } from '../interfaces/IService';
 import { IMotorcycle, MotorcycleSchema } from '../interfaces/IMotorcycle';
 import { IModel } from '../interfaces/IModel';
-// import { ErrorTypes } from '../errors/error';
+import { ErrorTypes } from '../errors/error';
 
 class MotorcycleService implements IService<IMotorcycle> {
   private _motor: IModel<IMotorcycle>;
@@ -20,6 +20,12 @@ class MotorcycleService implements IService<IMotorcycle> {
   public async read(): Promise<IMotorcycle[]> {
     const result = await this._motor.read();
     if (result === null) return [];
+    return result;
+  }
+
+  public async readOne(_id: string): Promise<IMotorcycle> {
+    const result = await this._motor.readOne(_id);   
+    if (!result) throw new Error(ErrorTypes.EntityNotFound);
     return result;
   }
 }
