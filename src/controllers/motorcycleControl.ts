@@ -24,4 +24,16 @@ export default class MotorcycleControl {
     const result = await this._service.readOne(id);
     return res.status(200).json(result);
   }
+
+  public async update(req: Request, res: Response<IMotorcycle>) {
+    const { id } = req.params;
+    const data: IMotorcycle = req.body;
+
+    if (id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+    if (Object.keys(data).length === 0) {
+      return res.status(400).end();
+    } 
+    const result = await this._service.update(id, data);
+    return res.status(200).json(result);
+  }
 }

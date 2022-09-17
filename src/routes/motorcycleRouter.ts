@@ -12,7 +12,7 @@ const motorcycleControl = new MotorControl(motorcycleService);
 motorcycleRouter.post('/', (req, res) => motorcycleControl.create(req, res));
 motorcycleRouter.get('/', (req, res) => motorcycleControl.read(req, res));
 motorcycleRouter.get('/:id', (req, res) => motorcycleControl.readOne(req, res));
-// motorcycleRouter.put('/:id', (req, res) => motorcycleControl.update(req, res));
+motorcycleRouter.put('/:id', (req, res) => motorcycleControl.update(req, res));
 // motorcycleRouter.delete('/:id', (req, res) => motorcycleControl.delete(req, res));
 
 export default motorcycleRouter;

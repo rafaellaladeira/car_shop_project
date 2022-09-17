@@ -28,6 +28,12 @@ class MotorcycleService implements IService<IMotorcycle> {
     if (!result) throw new Error(ErrorTypes.EntityNotFound);
     return result;
   }
+
+  public async update(_id: string, obj: IMotorcycle): Promise<IMotorcycle> {
+    const result = await this._motor.update(_id, obj);
+    if (!result) throw new Error(ErrorTypes.EntityNotFound);
+    return result;
+  }
 }
 
 export default MotorcycleService;
