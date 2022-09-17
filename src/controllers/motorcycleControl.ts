@@ -36,4 +36,12 @@ export default class MotorcycleControl {
     const result = await this._service.update(id, data);
     return res.status(200).json(result);
   }
+
+  public async delete(req: Request, res: Response<IMotorcycle | unknown>) {
+    const { id } = req.params;
+
+    if (id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+    const data = await this._service.delete(id);
+    if (data) return res.status(204).end();
+  }
 }
