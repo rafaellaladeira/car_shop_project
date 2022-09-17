@@ -1,10 +1,27 @@
 import { IService } from '../interfaces/IService';
-import { IMotorcycle } from '../interfaces/IMotorcycle';
+import { IMotorcycle, MotorcycleSchema } from '../interfaces/IMotorcycle';
 import { IModel } from '../interfaces/IModel';
-import { ErrorTypes } from '../errors/error';
+// import { ErrorTypes } from '../errors/error';
 
 class MotorcycleService implements IService<IMotorcycle> {
+  private _motor: IModel<IMotorcycle>;
+  constructor(model: IModel<IMotorcycle>) {
+    this._motor = model;
+  }
 
+  public async create(obj: IMotorcycle): Promise<IMotorcycle> {
+    const parsed = MotorcycleSchema.safeParse(obj);
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+    return this._motor.create(obj);
+  }
+
+  public async read(): Promise<IMotorcycle[]> {
+    const result = await this._motor.read();
+    if (result === null) return [];
+    return result;
+  }
 }
 
 export default MotorcycleService;
